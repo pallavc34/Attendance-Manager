@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="start|center_horizontal|top|left"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="145dp"
+        app:srcCompat="@drawable/theemlogo" />
+
+    <EditText
+        android:id="@+id/signup_input_name"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:hint="enter name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/signup_input_email"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:hint="@string/hint_email"
+        android:inputType="textPersonName" />
+
+    <Spinner
+        android:id="@+id/designation"
+        android:layout_width="match_parent"
+
+        android:layout_height="50dp" />
+
+    <Spinner
+        android:id="@+id/department"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+
+    <EditText
+        android:id="@+id/signup_input_password"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:hint="@string/hint_password"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/btn_signup"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Signup" />
+
+    <Button
+        android:id="@+id/btn_link_login"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="@string/btn_link_login" />
+</LinearLayout>
