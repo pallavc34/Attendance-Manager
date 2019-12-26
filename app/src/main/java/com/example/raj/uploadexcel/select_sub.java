@@ -39,6 +39,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import static android.content.ContentValues.TAG;
@@ -106,7 +107,8 @@ public class select_sub  extends AppCompatActivity implements DatePickerDialog.O
             c.set(Calendar.YEAR, year);
             c.set(Calendar.MONTH, month);
             c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            currentDateString = DateFormat.getDateInstance(DateFormat.SHORT).format(c.getTime());
+            SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/dd");
+            currentDateString = sdf.format(c.getTime());
             Log.v("Date",currentDateString);
             TextView textView = (TextView) findViewById(R.id.textView);
             textView.setText(currentDateString);
