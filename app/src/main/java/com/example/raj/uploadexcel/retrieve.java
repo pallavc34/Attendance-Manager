@@ -15,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,7 +59,7 @@ public class retrieve extends Activity {
     public static int currentdatemonth;
     public static int getCurrentdateyear;
     public static int getCurrentday;
-Uri uri;
+    Uri uri;
 public  String fileName  = "Monthly_Report_"+currentdatemonth+"_"+getCurrentdateyear+"_"+selected_sub+".xls";
 //raj1
     @Override
@@ -108,31 +109,44 @@ public  String fileName  = "Monthly_Report_"+currentdatemonth+"_"+getCurrentdate
                         break;
 
             }
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED){
-                        requestPermissions(new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                        File direct  = new File(Environment.getExternalStorageDirectory()+"/Monthly_report");
-                        if(!direct.exists()){
-                            direct.mkdirs();
 
-                        }
-                        DownloadManager dm = (DownloadManager)getSystemService(Context.DOWNLOAD_SERVICE);
-                        DownloadManager.Request request = new DownloadManager.Request(uri);
-                        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                        request.setDestinationInExternalFilesDir(retrieve.this,"/Monthly_report" , fileName);
-                        dm.enqueue(request);
-                    }else{
-                        Toast.makeText(getBaseContext(), "Provide read and write permission.",Toast.LENGTH_SHORT).show();
+                if (ContextCompat.checkSelfPermission(retrieve.this, Manifest.permission
+                        .READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(retrieve.this,
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+                } else {
+                    File direct = new File(Environment.getExternalStorageDirectory() + "/Monthly_report");
+                    if (!direct.exists()) {
+                        direct.mkdirs();
 
                     }
+                    DownloadManager dm = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+                    DownloadManager.Request request = new DownloadManager.Request(uri);
+                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                    request.setDestinationInExternalFilesDir(retrieve.this, "/Monthly_report", fileName);
+                    dm.enqueue(request);
                 }
+
 
 
             }
         });
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            File direct = new File(Environment.getExternalStorageDirectory() + "/Monthly_report");
+            if (!direct.exists()) {
+                direct.mkdirs();
 
-
-
+            }
+            DownloadManager dm = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+            DownloadManager.Request request = new DownloadManager.Request(uri);
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+            request.setDestinationInExternalFilesDir(retrieve.this, "/Monthly_report", fileName);
+            dm.enqueue(request);
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
 }
