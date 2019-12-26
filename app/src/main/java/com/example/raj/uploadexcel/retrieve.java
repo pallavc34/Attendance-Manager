@@ -49,8 +49,6 @@ import static com.example.raj.uploadexcel.select_sub.urlAddress;
 
 public class retrieve extends Activity {
 
-    public int sem = 1;
-    public String dept = "Information Technology";
     String type, message;
     private static String TAG = "ReadActivity";
     Button btn_submit;
