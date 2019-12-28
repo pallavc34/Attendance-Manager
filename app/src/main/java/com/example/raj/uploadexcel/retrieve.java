@@ -2,8 +2,10 @@ package com.example.raj.uploadexcel;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -11,6 +13,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -44,6 +47,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.example.raj.uploadexcel.login.designation;
 import static com.example.raj.uploadexcel.mMySql.dataparser4.selected_sub;
 import static com.example.raj.uploadexcel.select_sub.urlAddress;
 
@@ -60,14 +64,16 @@ public class retrieve extends Activity {
     public static int getCurrentdateyear;
     public static int getCurrentday;
     Uri uri;
-public  String fileName  = "Monthly_Report_"+currentdatemonth+"_"+getCurrentdateyear+"_"+selected_sub+".xls";
-//raj1
+    AlertDialog.Builder builder;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.read);
         setTitle("Subject Allocation");
+
+
 
         sp = findViewById(R.id.sub);
         currentDate = findViewById(R.id.currentdateTxt);
@@ -123,7 +129,9 @@ public  String fileName  = "Monthly_Report_"+currentdatemonth+"_"+getCurrentdate
                     DownloadManager dm = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
                     DownloadManager.Request request = new DownloadManager.Request(uri);
                     request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                    request.setDestinationInExternalFilesDir(retrieve.this, "/Monthly_report", fileName);
+
+                    request.setDestinationInExternalFilesDir(retrieve.this, "/Monthly_report", "Monthly_Report_"+currentdatemonth+"_"+getCurrentdateyear+"_"+selected_sub+".xls");
+
                     dm.enqueue(request);
                 }
 
@@ -144,8 +152,42 @@ public  String fileName  = "Monthly_Report_"+currentdatemonth+"_"+getCurrentdate
             DownloadManager dm = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
             DownloadManager.Request request = new DownloadManager.Request(uri);
             request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-            request.setDestinationInExternalFilesDir(retrieve.this, "/Monthly_report", fileName);
+            request.setDestinationInExternalFilesDir(retrieve.this, "/Monthly_report", "Monthly_Report_"+currentdatemonth+"_"+getCurrentdateyear+"_"+selected_sub+".xls");
+
             dm.enqueue(request);
+        }
+        else{
+            builder = new AlertDialog.Builder(this);
+            builder.setMessage("Please provide storage access to store report on your device. Click yes to manually allow storage permissions.")
+                    .setCancelable(false)
+                    .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:"+getPackageName()));
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            //Uri uri1 = Uri.fromParts("Package",getPackageName(),null);
+                            //intent.setData(uri1);
+                            startActivity(intent);
+
+                        }
+                    })
+            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    if(designation.equalsIgnoreCase("H.O.D")){
+                        Intent in = new Intent(getApplicationContext(),mainMenu_h.class );
+                        startActivity(in);
+                    }else{
+                        Intent in = new Intent(getApplicationContext(),mainMenu_l.class );
+                        startActivity(in);
+                    }
+                }
+            });
+            AlertDialog alert = builder.create();
+            alert.setTitle("Allow Permissions");
+            alert.show();
+
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
