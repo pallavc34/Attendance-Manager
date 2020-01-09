@@ -44,10 +44,12 @@ public class select_sub  extends AppCompatActivity implements DatePickerDialog.O
         String type1,message1;
         Context context;
         public static String TAG = "Content";
-
+    Button button;
          String department;
          public static String currentDateString;
          public static String time;
+    public static boolean subType;
+
 
     final static String urlAddress ="http://androidattend.000webhostapp.com/retrieve_teacher_sub.php";
         @Override
@@ -55,28 +57,8 @@ public class select_sub  extends AppCompatActivity implements DatePickerDialog.O
             super.onCreate(savedInstanceState);
             setContentView(R.layout.select_sub);
             setTitle("Select Subject");
+            sp = findViewById(R.id.spinner2);
 
-           sp = findViewById(R.id.spinner2);
-           sp1 = findViewById(R.id.spinner1);
-
-            final String[] timeSlot=getResources().getStringArray(R.array.Time_Slot);
-
-            ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, timeSlot);
-
-            sp1.setAdapter(adapter);
-
-            sp1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    time = timeSlot[i];
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
-
-                }
-            });
-           Log.v(TAG, "time"+time);
 
             Button submit_btn = findViewById(R.id.btnSubmit);
             submit_btn.setOnClickListener(new View.OnClickListener() {
@@ -100,7 +82,7 @@ public class select_sub  extends AppCompatActivity implements DatePickerDialog.O
 
 
 
-            Button button = (Button) findViewById(R.id.button);
+            button = (Button) findViewById(R.id.button);
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -119,6 +101,7 @@ public class select_sub  extends AppCompatActivity implements DatePickerDialog.O
             SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/dd ");
             currentDateString = sdf.format(c.getTime());
             Log.v("Date",currentDateString);
+            button.setText(currentDateString);
         }
 
 
@@ -148,7 +131,8 @@ public class select_sub  extends AppCompatActivity implements DatePickerDialog.O
 
 
                 Log.v(TAG, "sss" + selected_sub);
-
+                subType = selected_sub.indexOf("LAB") != -1 ? true : false; //true for LAB and False for Theory Subject
+                Log.v(TAG, "sss" + selected_sub);
                 urlConnection.setDoInput(true);
                 urlConnection.setDoOutput(true);
                 urlConnection.setRequestProperty("Content-Type", "text/plain");

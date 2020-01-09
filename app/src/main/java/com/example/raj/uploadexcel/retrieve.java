@@ -80,7 +80,7 @@ public class retrieve extends Activity {
         initialDate = findViewById(R.id.initialDateTxt);
 
         Calendar c = Calendar.getInstance();
-        currentdatemonth = c.get(Calendar.MONTH);
+        currentdatemonth = c.get(Calendar.MONTH) + 1;
         getCurrentdateyear = c.get(Calendar.YEAR);
         getCurrentday = c.get(Calendar.DAY_OF_MONTH);
 

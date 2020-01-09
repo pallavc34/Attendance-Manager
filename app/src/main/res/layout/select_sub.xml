@@ -9,12 +9,6 @@
     android:orientation="vertical"
     android:padding="10dp">
 
-    <Spinner
-        android:id="@+id/spinner1"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:entries="@array/Time_Slot"
-        android:prompt="@string/Time_Slot" />
 
 
     <Spinner

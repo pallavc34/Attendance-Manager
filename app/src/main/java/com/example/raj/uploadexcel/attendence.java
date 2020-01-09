@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -37,6 +38,7 @@ import static com.example.raj.uploadexcel.mMySql.dataparser4.selected_sub;
 import static com.example.raj.uploadexcel.select_sub.currentDateString;
 import static com.example.raj.uploadexcel.select_sub.dept;
 import static com.example.raj.uploadexcel.select_sub.sem;
+import static com.example.raj.uploadexcel.select_sub.subType;
 import static com.example.raj.uploadexcel.select_sub.time;
 
 public class attendence extends Activity {
@@ -57,12 +59,41 @@ public class attendence extends Activity {
     SparseBooleanArray sparseBooleanArray;
     //int[] attend;
     List<Integer> attend;
+    Spinner sp1;
+    public static String time;
+    public String[] timeSlot;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.attendence);
         setTitle("Students List");
+
+
+        sp1 = findViewById(R.id.spinner1);
+
+        if(subType) {
+             timeSlot = getResources().getStringArray(R.array.Lab_Time_Slot);
+        }else{
+             timeSlot = getResources().getStringArray(R.array.Theory_Time_Slot);
+        }
+        ArrayAdapter<String> adapter1=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, timeSlot);
+
+        sp1.setAdapter(adapter1);
+
+        sp1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                time = timeSlot[i];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        Log.v(TAG, "time"+time);
 
         btn_submit = (Button) findViewById(R.id.btn_submit);
         builder = new AlertDialog.Builder(this);
