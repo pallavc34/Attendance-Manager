@@ -35,7 +35,7 @@ import static android.content.ContentValues.TAG;
 
 public class register extends AppCompatActivity {
 
-    String[] department = { "I.T", "Comps", "Mech", "Electrical","Extc", "Civil", "Auto"};
+    static String[] department = { "I.T", "Comps", "Mech", "Electrical","Extc", "Civil", "Auto"};
     String[] designat = {"H.O.D", "Lecturer"};
     Button btn_signup;
     EditText txt_name;

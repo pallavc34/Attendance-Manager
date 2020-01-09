@@ -6,26 +6,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.EditText;
 import android.widget.Spinner;
 
-import android.app.DatePickerDialog;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.raj.uploadexcel.mMySql.Downloader;
 import com.example.raj.uploadexcel.mMySql.retrieve_sub;
 
 import org.json.JSONException;
@@ -38,11 +29,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import static android.content.ContentValues.TAG;
 import static com.example.raj.uploadexcel.mMySql.dataparser4.selected_sub;
 
 public class select_sub  extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
@@ -107,10 +96,10 @@ public class select_sub  extends AppCompatActivity implements DatePickerDialog.O
             c.set(Calendar.YEAR, year);
             c.set(Calendar.MONTH, month);
             c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/dd ");
             currentDateString = sdf.format(c.getTime());
             Log.v("Date",currentDateString);
-            TextView textView = (TextView) findViewById(R.id.textView);
+            TextView textView = (TextView) findViewById(R.id.txt_teacher);
             textView.setText(currentDateString);
         }
 

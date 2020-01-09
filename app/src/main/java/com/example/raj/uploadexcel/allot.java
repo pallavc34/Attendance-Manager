@@ -11,17 +11,15 @@ import com.example.raj.uploadexcel.mMySql.Downloader;
 import com.example.raj.uploadexcel.mMySql.Downloader2;
 import com.example.raj.uploadexcel.mMySql.Downloader3;
 
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
 
-import android.view.MenuItem;
-
-
-import android.view.Menu;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -36,23 +34,23 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import static com.example.raj.uploadexcel.mMySql.DataParser.Position;
-import static com.example.raj.uploadexcel.mMySql.DataParser3.emp_id;
+
+import static com.example.raj.uploadexcel.register.department;
+
+
+public class allot extends Activity implements AdapterView.OnItemSelectedListener {
 
 
 
-public class allot extends Activity
-  {
-
-
-    public final static String urlAddress = "http://androidattend.000webhostapp.com/connect.php";
     public final static String urlAddress2 = "http://androidattend.000webhostapp.com/subjectt.php";
     public final static String urlAddress3 = "http://androidattend.000webhostapp.com/retrieve_id.php";
-    String spinone, spintwo;
+    public static String selectedDepartment, selectedSubject;
     String type;
     String message;
     Button btn;
-    Spinner sp,sp2;
+    Spinner sp2, spin_depart;
     public static String TAG = "Content";
+    public TextView txtTeacher;
 
 
     @Override
@@ -61,152 +59,47 @@ public class allot extends Activity
         setContentView(R.layout.content_main);
         setTitle("Subject Allocation");
 
+        txtTeacher = findViewById(R.id.txt_teacher);
 
-        sp = findViewById(R.id.sp);
         sp2 = findViewById(R.id.sp2);
+        spin_depart = findViewById(R.id.spin_dept);
 
+        ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, department);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        spin_depart.setAdapter(aa);
 
-        new Downloader(allot.this, urlAddress, sp).execute();
         new Downloader2(allot.this, urlAddress2, sp2).execute();
-        new Downloader3(allot.this, urlAddress3).execute();
+        Log.v(TAG,"uu"+ urlAddress2);
 
         btn = findViewById(R.id.btnn);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    new allot.PostDataAsyncTask().execute();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+               selectedSubject= sp2.getSelectedItem().toString();
+                Log.v(TAG,"sub"+ selectedSubject);
+                Intent i = new Intent(allot.this, allocation.class);
+                startActivity(i);
             }
         });
 
-
-    }
-
-    public class PostDataAsyncTask extends AsyncTask<String, String, String> {
-
-        ProgressDialog pdLoading = new ProgressDialog(allot.this);
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            //this method will be running on UI thread
-            pdLoading.setMessage("\tLoading...");
-            pdLoading.setCancelable(false);
-            pdLoading.show();
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
-            String response = null;
-            try {
-                // url where the data will be posted
-
-                URL url = new URL("http://androidattend.000webhostapp.com/allocation.php");
-                Log.v(TAG, "postURL: " + url);
-
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("POST");
-
-                String spinone = sp.getSelectedItem().toString();
-                String spintwo = sp2.getSelectedItem().toString();
-
-                int selected_emp_id = emp_id[Position];
-                Log.v("Selected emp id", "" + selected_emp_id);
-
-                Log.v("allot", "Selected emp id=" + selected_emp_id);
-                Log.v(TAG, "spinn1" + spinone);
-                Log.v(TAG, "spinn1" + spintwo);
-                urlConnection.setDoInput(true);
-                urlConnection.setDoOutput(true);
-                urlConnection.setRequestProperty("Content-Type", "text/plain");
-
-                // Send the post body
-                if (spinone != null && spintwo != null) {
-                    OutputStream writer = urlConnection.getOutputStream();
-
-                    JSONObject jObject = new JSONObject();
-                    jObject.put("prof", spinone);
-                    jObject.put("subject", spintwo);
-                    jObject.put("emp_id", selected_emp_id);
-
-                    String data = jObject.toString();
-
-                    //byte[] data = email.getBytes();
-                    writer.write(data.getBytes());
-                    Log.v(TAG, "hhh" + data);
-                    writer.flush();
-                }
-                int statusCode = urlConnection.getResponseCode();
-
-                if (statusCode == 200) {
-
-                    InputStream inputStream = urlConnection.getErrorStream();
-
-                    if (inputStream == null) //If inputStream is null here, no error has occured.
-                        inputStream = urlConnection.getInputStream();
-                    //InputStream inputStream = new BufferedInputStream(urlConnection.getInputStream());
-
-                    response = convertInputStreamToString(inputStream);
-                    Log.v(TAG, "hhh" + response);
-                    JSONObject jObject1 = new JSONObject(response);
-                    type = (jObject1.getString("error"));
-                    message = (jObject1.getString("message"));
-                    Log.v(TAG, "type" + type);
-                    Log.v(TAG, "message" + message);
-
-
-                } else {
-                    // Status code is not 200
-                    // Do something to handle the error
-                }
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            return response;
-        }
-
-
-        @Override
-        protected void onPostExecute (String response){
-            String result = response;
-            pdLoading.dismiss();
-
-            if (type.equalsIgnoreCase("fal")) {
-                Toast.makeText(allot.this, message, Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(allot.this, message, Toast.LENGTH_SHORT).show();
-            }
-
-        }
+        spin_depart.setOnItemSelectedListener(this);
 
 
     }
-    // this will post our text data
-    private void postText(){
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        selectedDepartment = department[i];
+        Log.v(TAG,"sub"+ selectedDepartment);
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
 
 
     }
-    private String convertInputStreamToString(InputStream inputStream) {
-        BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
-        StringBuilder sb = new StringBuilder();
-        String line;
-        try {
-            while((line = bufferedReader.readLine()) != null) {
-                sb.append(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return sb.toString();
-    }
+
 
 }
 

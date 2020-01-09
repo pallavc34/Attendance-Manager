@@ -22,7 +22,7 @@
 
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/txt_teacher"
         android:layout_width="421dp"
         android:layout_height="51dp"
         android:layout_above="@id/button"

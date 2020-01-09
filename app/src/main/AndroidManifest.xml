@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".select_sub" />
+        <activity android:label="Subject Allocation" android:name=".allocation" />
         <activity android:name=".register" />
         <activity android:name=".upload_image" />
         <activity android:name=".upload" />

@@ -47,8 +47,8 @@ public class Downloader3 extends AsyncTask<Void, Void,String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-            DataParser3 parser = new DataParser3(c,s);
-            parser.execute();
+        DataParser3 parser = new DataParser3(c,s);
+        parser.execute();
 
 
 
