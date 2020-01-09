@@ -69,6 +69,28 @@ public class attendence extends Activity {
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                ValueHolder = "";
+                Present_students = 0;
+
+                int i = 0;
+                Log.v(TAG, "sb" + sparseBooleanArray.size());
+
+                while (i < sparseBooleanArray.size()) {
+
+                    if (sparseBooleanArray.valueAt(i)) {
+                        Log.v(TAG, "qwqw" + sparseBooleanArray.valueAt(i));
+
+                        // ValueHolder += ListViewItems.get(sparseBooleanArray.keyAt(i)) + ",";
+                        Present_students += 1;
+                        attend.add(ListViewItems.get(sparseBooleanArray.keyAt(i)));
+                    }
+
+                    i++;
+                }
+
+                ValueHolder = ValueHolder.replaceAll("(,)*$", "");
+
                 valueholder1=ValueHolder;
                 Log.v(TAG,"arr"+valueholder1);
 
@@ -164,6 +186,8 @@ public class attendence extends Activity {
 
         });
 
+
+
     }
 
 
@@ -194,26 +218,6 @@ public class attendence extends Activity {
                 urlConnection.setRequestProperty("Content-Type", "text/plain");
 
 
-                ValueHolder = "";
-                Present_students = 0;
-
-                int i = 0;
-                Log.v(TAG, "sb" + sparseBooleanArray.size());
-
-                while (i < sparseBooleanArray.size()) {
-
-                    if (sparseBooleanArray.valueAt(i)) {
-                        Log.v(TAG, "qwqw" + sparseBooleanArray.valueAt(i));
-
-                        // ValueHolder += ListViewItems.get(sparseBooleanArray.keyAt(i)) + ",";
-                        Present_students += 1;
-                        attend.add(ListViewItems.get(sparseBooleanArray.keyAt(i)));
-                    }
-
-                    i++;
-                }
-
-                ValueHolder = ValueHolder.replaceAll("(,)*$", "");
 
                 // Send the post body
                 if (attend != null) {

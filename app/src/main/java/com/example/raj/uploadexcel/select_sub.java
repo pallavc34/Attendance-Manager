@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import android.os.AsyncTask;
@@ -53,9 +55,27 @@ public class select_sub  extends AppCompatActivity implements DatePickerDialog.O
             super.onCreate(savedInstanceState);
             setContentView(R.layout.select_sub);
             setTitle("Select Subject");
+
            sp = findViewById(R.id.spinner2);
            sp1 = findViewById(R.id.spinner1);
-           time = sp1.getSelectedItem().toString();
+
+            final String[] timeSlot=getResources().getStringArray(R.array.Time_Slot);
+
+            ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, timeSlot);
+
+            sp1.setAdapter(adapter);
+
+            sp1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    time = timeSlot[i];
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
            Log.v(TAG, "time"+time);
 
             Button submit_btn = findViewById(R.id.btnSubmit);
