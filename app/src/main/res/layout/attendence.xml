@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,17 +10,28 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+
+        <Spinner
+            android:id="@+id/sub"
+            android:layout_width="match_parent"
+            android:layout_height="11dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="86dp"
+            android:layout_weight="1" />
 
         <ListView
+            android:id="@+id/listView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/listView"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:choiceMode="multipleChoice"
-            />
+            android:choiceMode="multipleChoice" />
 
         <Button
             android:id="@+id/btn_submit"
@@ -30,4 +42,4 @@
 
 
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

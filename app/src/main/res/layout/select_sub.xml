@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     android:orientation="vertical"
-    >
+    android:padding="10dp">
 
     <Spinner
         android:id="@+id/spinner1"
@@ -21,23 +23,14 @@
         android:layout_height="50dp" />
 
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="421dp"
-        android:layout_height="51dp"
-        android:layout_above="@id/button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="28dp"
-        android:text="Select Date:"
-        android:textSize="30sp" />
-
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="open date picker" />
+        android:text="Select Date"
+        android:textAlignment="center" />
 
 
     <Button

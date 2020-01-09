@@ -6,6 +6,7 @@
     android:layout_height="fill_parent"
     android:gravity="center"
     android:orientation="vertical"
+    android:background="@drawable/gradient"
     android:padding="10dp" >
 
 
@@ -14,12 +15,13 @@
         android:layout_width="200dp"
         android:layout_height="45dp"
         android:layout_marginStart="99dp"
-        android:layout_marginTop="159dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="89dp"
         android:ems="10"
         android:hint="@string/hint_email"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.521"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

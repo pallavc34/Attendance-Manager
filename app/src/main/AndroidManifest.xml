@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.raj.uploadexcel">
+    package="com.example.raj.uploadexcel" >
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.Write_External_Storage"/>
+    <uses-permission android:name="android.permission.Write_External_Storage" />
 
     <application
         android:allowBackup="true"
@@ -14,8 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".login">
+        android:usesCleartextTraffic="true" >
+        <activity android:name=".login" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,7 +29,9 @@
         <activity android:name=".upload" />
         <activity android:name=".retrieve" />
         <activity android:name=".attendence" />
-        <activity android:label="Subject Allocation" android:name=".allot" />
+        <activity
+            android:name=".allot"
+            android:label="Subject Allocation" />
         <activity android:name=".mainMenu_h" />
         <activity android:name=".mainMenu_l" />
     </application>

@@ -2,7 +2,10 @@ package com.example.raj.uploadexcel;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -32,13 +35,21 @@ public class login extends Activity {
     Button btn_link_signup;
     EditText txt_email;
     EditText txt_pass;
-    String email;
-    String pass;
+    String email="";
+    String pass="";
     String type;
     String message="";
     public static String designation;
     public static String department;
     public static String emp_id;
+
+    //Checking network state
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,16 +71,22 @@ public class login extends Activity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                txt_email = (EditText) findViewById(R.id.login_input_email);
+                String email = txt_email.getText().toString();
+                txt_pass = findViewById(R.id.login_input_password);
+                String pass = txt_pass.getText().toString();
+                if (!isNetworkAvailable()) {
+                    Toast.makeText(login.this, "Please enable mobile data", Toast.LENGTH_SHORT).show();
+                } else if (email.equals("") || pass.equals("")) {
+                    Toast.makeText(login.this, "Please fill email and password", Toast.LENGTH_SHORT).show();
+                } else {
+                    try {
+                        new PostDataAsyncTask().execute();
 
-
-
-                try {
-                    new PostDataAsyncTask().execute();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-
             }
         });
 
@@ -104,10 +121,6 @@ public class login extends Activity {
         protected String doInBackground(String... strings) {
             String response = null;
             try {
-                txt_email = (EditText) findViewById(R.id.login_input_email);
-                String email = txt_email.getText().toString();
-                txt_pass = findViewById(R.id.login_input_password);
-                String pass = txt_pass.getText().toString();
                 // url where the data will be posted
                 URL url = new URL("http://androidattend.000webhostapp.com/login.php");
                 Log.v(TAG, "postURL: " + url);
