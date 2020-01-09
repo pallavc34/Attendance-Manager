@@ -16,7 +16,7 @@
     <string name="btn_link_signup">Don\'t have an account yet Register !!</string>
     <string name="btn_link_login">Already have an account Login !!</string>
     <string name="dialog_message">Welcome to Alert Dialog</string>
-    <string name="dialog_title">Javatpoint Alert Dialog</string>
+    <string name="dialog_title"> Alert Dialog</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string-array name="dept_array">
