@@ -57,15 +57,29 @@ public class login extends Activity {
         setContentView(R.layout.activity_login);
         setTitle("Login");
         //Code for Auto Login
-        message = PreferenceManager.getDefaultSharedPreferences(this).getString("email", "");
-        String pref = PreferenceManager.getDefaultSharedPreferences(this).getString("pref", "");
-        if (!message.equals("")) {
-            if (pref.equals("hod")) {
+        message = PreferenceManager.getDefaultSharedPreferences(this).getString("pref", "");
+        Log.i("Pref",message);
+        try {
+            JSONObject jObject1 = new JSONObject(message);
+            type = (jObject1.getString("error"));
+            message = (jObject1.getString("message"));
+            designation = (jObject1.getString("designation"));
+            department = (jObject1.getString("department"));
+            emp_id = (jObject1.getString("emp_id"));
+            Log.v(TAG, "type " + type);
+            Log.v(TAG, "message " + message);
+            Log.v(TAG, "designation  " + designation);
+            Log.v(TAG, "department " + department);
+            Log.v(TAG, "emp_id" + emp_id);
+            if (designation.equalsIgnoreCase("H.O.D")) {
                 hod();
-            } else if (pref.equals("lect")) {
+            } else if (designation.equalsIgnoreCase("Lecturer")) {
                 lect();
             }
+        }catch (Exception e){
+            Toast.makeText(this, "Auto Login Failed", Toast.LENGTH_SHORT).show();
         }
+
 
         btn_login = (Button) findViewById(R.id.btn_login);
         btn_login.setOnClickListener(new View.OnClickListener() {
@@ -170,10 +184,10 @@ public class login extends Activity {
                     designation = (jObject1.getString("designation"));
                     department = (jObject1.getString("department"));
                     emp_id = (jObject1.getString("emp_id"));
-                    Log.v(TAG, "type" + type);
-                    Log.v(TAG, "message" + message);
-                    Log.v(TAG, "designation" + designation);
-                    Log.v(TAG, "designation" + department);
+                    Log.v(TAG, "type " + type);
+                    Log.v(TAG, "message " + message);
+                    Log.v(TAG, "designation " + designation);
+                    Log.v(TAG, "designation " + department);
                     Log.v(TAG, "emp_id" + emp_id);
 
 
@@ -203,15 +217,15 @@ public class login extends Activity {
                 Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
                 if(designation.equalsIgnoreCase("H.O.D"))
                 {
-                    PreferenceManager.getDefaultSharedPreferences(login.this).edit().putString("email", email).apply();
-                    PreferenceManager.getDefaultSharedPreferences(login.this).edit().putString("pref", "hod").apply();
+                    PreferenceManager.getDefaultSharedPreferences(login.this).edit().putString("pref",response).apply();
                     Intent myIntent = new Intent(getBaseContext(),mainMenu_h.class);
+                    myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(myIntent);
                     finish();
                 }else if(designation.equalsIgnoreCase("Lecturer")){
-                    PreferenceManager.getDefaultSharedPreferences(login.this).edit().putString("email", email).apply();
-                    PreferenceManager.getDefaultSharedPreferences(login.this).edit().putString("pref", "lect").apply();
+                    PreferenceManager.getDefaultSharedPreferences(login.this).edit().putString("pref",response).apply();
                     Intent myIntent = new Intent(getBaseContext(),mainMenu_l.class);
+                    myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(myIntent);
                     finish();
                 }else{
@@ -251,10 +265,12 @@ public class login extends Activity {
     }
     public void hod(){
         Intent myIntent = new Intent(getBaseContext(),mainMenu_h.class);
+        myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(myIntent);
     }
     public void lect(){
         Intent myIntent = new Intent(getBaseContext(),mainMenu_l.class);
+        myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(myIntent);
     }
 

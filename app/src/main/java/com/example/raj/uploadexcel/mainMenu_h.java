@@ -12,12 +12,18 @@ public class mainMenu_h extends Activity {
 
    Button  attend;
    Button  allot;
-    Button  report;
-    Button  logout;
+   Button  report;
+   Button  logout;
 
+    @Override
+    public void onBackPressed() {
+        //Kill the app
+        moveTaskToBack(true);
+        finish();
+        super.onBackPressed();
+    }
 
-
-   @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState)
    {
        super.onCreate(savedInstanceState);
@@ -63,7 +69,7 @@ public class mainMenu_h extends Activity {
        logout.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               PreferenceManager.getDefaultSharedPreferences(mainMenu_h.this).edit().putString("email","").apply();
+               PreferenceManager.getDefaultSharedPreferences(mainMenu_h.this).edit().putString("pref","").apply();
                Intent int123 = new Intent(mainMenu_h.this,login.class);
                startActivity(int123);
                finish();

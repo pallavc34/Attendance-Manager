@@ -16,6 +16,13 @@ public class mainMenu_l extends AppCompatActivity {
     Button  report;
     Button  logout;
 
+    @Override
+    public void onBackPressed() {
+        //Kill in app
+        moveTaskToBack(true);
+        finish();
+        super.onBackPressed();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -55,7 +62,7 @@ public class mainMenu_l extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PreferenceManager.getDefaultSharedPreferences(mainMenu_l.this).edit().putString("email","").apply();
+                PreferenceManager.getDefaultSharedPreferences(mainMenu_l.this).edit().putString("pref","").apply();
                 Intent int123 = new Intent(mainMenu_l.this,login.class);
                 startActivity(int123);
                 finish();
