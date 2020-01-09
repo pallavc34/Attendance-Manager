@@ -119,8 +119,6 @@ public class select_sub  extends AppCompatActivity implements DatePickerDialog.O
             SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/dd ");
             currentDateString = sdf.format(c.getTime());
             Log.v("Date",currentDateString);
-            TextView textView = (TextView) findViewById(R.id.txt_teacher);
-            textView.setText(currentDateString);
         }
 
 

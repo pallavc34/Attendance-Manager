@@ -121,6 +121,10 @@ public class login extends Activity {
         protected String doInBackground(String... strings) {
             String response = null;
             try {
+                txt_email = (EditText) findViewById(R.id.login_input_email);
+                String email = txt_email.getText().toString();
+                txt_pass = findViewById(R.id.login_input_password);
+                String pass = txt_pass.getText().toString();
                 // url where the data will be posted
                 URL url = new URL("http://androidattend.000webhostapp.com/login.php");
                 Log.v(TAG, "postURL: " + url);

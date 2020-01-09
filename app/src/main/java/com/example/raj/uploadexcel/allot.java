@@ -59,7 +59,6 @@ public class allot extends Activity implements AdapterView.OnItemSelectedListene
         setContentView(R.layout.content_main);
         setTitle("Subject Allocation");
 
-        txtTeacher = findViewById(R.id.txt_teacher);
 
         sp2 = findViewById(R.id.sp2);
         spin_depart = findViewById(R.id.spin_dept);
