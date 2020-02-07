@@ -175,13 +175,9 @@ public class retrieve extends Activity {
             .setNegativeButton("No", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    if(designation.equalsIgnoreCase("H.O.D")){
-                        Intent in = new Intent(getApplicationContext(),mainMenu_h.class );
+                        Intent in = new Intent(getApplicationContext(),Main_menu.class );
+                        in.putExtra("key", designation);
                         startActivity(in);
-                    }else{
-                        Intent in = new Intent(getApplicationContext(),mainMenu_l.class );
-                        startActivity(in);
-                    }
                 }
             });
             AlertDialog alert = builder.create();

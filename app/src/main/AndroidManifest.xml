@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.raj.uploadexcel" >
+    package="com.example.raj.uploadexcel">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -15,8 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light"
-        android:usesCleartextTraffic="true" >
-        <activity android:name=".login" >
+        android:usesCleartextTraffic="true">
+        <activity android:name=".Main_menu"></activity>
+        <activity android:name=".login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,7 +25,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".select_sub" />
-        <activity android:label="Subject Allocation" android:name=".allocation" />
+        <activity
+            android:name=".allocation"
+            android:label="Subject Allocation" />
         <activity android:name=".register" />
         <activity android:name=".upload_image" />
         <activity android:name=".upload" />
@@ -33,8 +36,6 @@
         <activity
             android:name=".allot"
             android:label="Subject Allocation" />
-        <activity android:name=".mainMenu_h" />
-        <activity android:name=".mainMenu_l" />
     </application>
 
 </manifest>

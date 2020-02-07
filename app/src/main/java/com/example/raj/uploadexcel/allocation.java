@@ -174,13 +174,9 @@ public class allocation extends Activity {
                 startActivity(i);
             } else {
                 Toast.makeText(allocation.this, message, Toast.LENGTH_SHORT).show();
-                if(designation.equalsIgnoreCase("H.O.D")){
-                    Intent i = new Intent(allocation.this, mainMenu_h.class);
-                    startActivity(i);
-                }else{
-                    Intent i = new Intent(allocation.this, mainMenu_l.class);
-                    startActivity(i);
-                }
+                Intent i = new Intent(allocation.this, Main_menu.class);
+                i.putExtra("key", designation);
+                startActivity(i);
             }
 
         }

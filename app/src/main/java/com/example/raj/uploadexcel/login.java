@@ -71,10 +71,8 @@ public class login extends Activity {
             Log.v(TAG, "designation  " + designation);
             Log.v(TAG, "department " + department);
             Log.v(TAG, "emp_id" + emp_id);
-            if (designation.equalsIgnoreCase("H.O.D")) {
-                hod();
-            } else if (designation.equalsIgnoreCase("Lecturer")) {
-                lect();
+            if (designation.equalsIgnoreCase("H.O.D") || designation.equalsIgnoreCase("Lecturer")) {
+                synclogin();
             }
         }catch (Exception e){
             Toast.makeText(this, "Auto Login Failed", Toast.LENGTH_SHORT).show();
@@ -215,27 +213,16 @@ public class login extends Activity {
 
             if (type.equalsIgnoreCase("false")) {
                 Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-                if(designation.equalsIgnoreCase("H.O.D"))
-                {
-                    PreferenceManager.getDefaultSharedPreferences(login.this).edit().putString("pref",response).apply();
-                    Intent myIntent = new Intent(getBaseContext(),mainMenu_h.class);
+                if (designation.equalsIgnoreCase("H.O.D") || designation.equalsIgnoreCase("Lecturer")) {
+                    PreferenceManager.getDefaultSharedPreferences(login.this).edit().putString("pref", response).apply();
+                    Intent myIntent = new Intent(getBaseContext(), Main_menu.class);
                     myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    myIntent.putExtra("key", designation);
                     startActivity(myIntent);
                     finish();
-                }else if(designation.equalsIgnoreCase("Lecturer")){
-                    PreferenceManager.getDefaultSharedPreferences(login.this).edit().putString("pref",response).apply();
-                    Intent myIntent = new Intent(getBaseContext(),mainMenu_l.class);
-                    myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(myIntent);
-                    finish();
-                }else{
+                } else {
                     Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
                 }
-
-
-
-
-
             } else {
                 Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
             }
@@ -263,18 +250,12 @@ public class login extends Activity {
         }
         return sb.toString();
     }
-    public void hod(){
-        Intent myIntent = new Intent(getBaseContext(),mainMenu_h.class);
+    public void synclogin(){
+        Intent myIntent = new Intent(getBaseContext(),Main_menu.class);
+        myIntent.putExtra("key", designation);
         myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(myIntent);
     }
-    public void lect(){
-        Intent myIntent = new Intent(getBaseContext(),mainMenu_l.class);
-        myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(myIntent);
-    }
-
-
 }
 
 
