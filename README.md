@@ -12,5 +12,3 @@ The app will need to be configured with registration and login details inside lo
 
 Only a teacher of the specific department is able to take attendance of the students of that department.
 You also have an option to download a monthly report of the attendance taken by the teacher. 
-
-You can contact me for more details on careerblogging24@gmail.com
